@@ -1,3 +1,6 @@
+; by Andrew Troy
+; 2023-02-03 
+
 ; shift + alt + d to insert the current date formatted how I want
 !+d::
 FormatTime, CurrentDateTime,, yyyy-MM-dd
@@ -14,6 +17,9 @@ return
 
 ; windows key to perform a left mouse button click
 RCtrl::LButton
+
+; alt + c to perform a left mouse button click
++z::LButton
 
 ; shift + alt + up/down to adjust volume + m to mute
 !+Down::Volume_Down
