@@ -15,9 +15,6 @@ SendInput {°}
 return
 
 
-; windows key to perform a left mouse button click
-RCtrl::LButton
-
 ; alt + c to perform a left mouse button click
 !c::LButton
 
