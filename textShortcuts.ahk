@@ -8,12 +8,7 @@ SendInput %CurrentDateTime%
 return
 
 ; shift + alt + o to create the ° symbol
-!+o::
-{
-SendInput {°}
-}
-return
-
+!+o::SendInput {U+00B0}
 
 ; alt + c to perform a left mouse button click
 !c::LButton
