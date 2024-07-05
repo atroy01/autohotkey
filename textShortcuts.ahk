@@ -18,6 +18,16 @@ return
 !+Down::Volume_Down
 !+Up::Volume_Up
 
+; shift + alt + s to center across selection in excel
++!s::
+Send, ^1
+Send, a
+Send, !h
+Send, cc
+Send, {enter}{enter}
+return
+
+
 
 !+m::
 {
