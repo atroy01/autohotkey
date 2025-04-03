@@ -34,3 +34,14 @@ return
 Send {Volume_Mute}
 }
 return
+
+
+
+
+; added this on 2025-04-03
++!Down::  ; Shift + Alt + D to move the selected row all the way to the bottom
+Send ^x  ; Cut the selected text
+Sleep 100  ; Short delay for clipboard update
+Send ^{End}  ; Move cursor to the bottom of the text box
+Send ^v  ; Paste the text
+return
