@@ -52,3 +52,7 @@ Send ^v  ; Paste the text
 Sleep 50
 Send ^{Home}
 return
+
+
+; added this on 2025-04-07
+!F1::Send {PrintScreen}
