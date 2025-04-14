@@ -43,7 +43,7 @@ return
 Send ^x  ; Cut the selected text
 Sleep 50  ; Short delay for clipboard update
 Send ^{End}  ; Move cursor to the bottom of the text box
-Sleep 50  ; Short delay for clipboard update
+Sleep 150  ; Short delay for clipboard update
 Send {Enter}
 Sleep 50  ; Short delay for clipboard update
 Send +{Tab 3}
