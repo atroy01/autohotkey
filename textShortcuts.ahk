@@ -10,9 +10,6 @@ return
 ; shift + alt + o to create the ° symbol
 !+o::SendInput {U+00B0}
 
-; alt + c to perform a left mouse button click
-!c::LButton
-
 
 ; shift + alt + up/down to adjust volume + m to mute
 !+Down::Volume_Down
