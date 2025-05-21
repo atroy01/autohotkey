@@ -53,3 +53,64 @@ return
 
 ; added this on 2025-04-07
 !F1::Send {PrintScreen}
+
+
+
+; 2025-05-21 script from chatgpt that automatically reverses the lines that were enteired into a single excel cell. good for reversing the view of dated lines
+^!r:: ; Ctrl + Alt + R
+{
+    ; Save the current clipboard
+    ClipSaved := ClipboardAll
+    Clipboard := ""
+
+    ; Open the selected Excel cell in edit mode
+    Send, {F2}
+    Sleep, 100
+
+    ; Select all and copy
+    Send, ^a
+    Sleep, 100
+    Send, ^c
+
+    ; Wait up to 2 seconds for clipboard to update
+    ClipWait, 2
+    if (ErrorLevel) {
+        MsgBox, Clipboard did not update. Try again.
+        Clipboard := ClipSaved
+        return
+    }
+
+    ; Get the clipboard content
+    text := Clipboard
+
+    ; Normalize line endings
+    lines := StrSplit(text, "`n")
+    for i, line in lines
+        lines[i] := RegExReplace(line, "`r")
+
+    ; Reverse the lines
+    reversed := ""
+    Loop % lines.MaxIndex()
+    {
+        reversed .= lines[lines.MaxIndex() - A_Index + 1]
+        if (A_Index != lines.MaxIndex())
+            reversed .= "`r`n"
+    }
+
+    ; Replace clipboard with reversed content
+    Clipboard := reversed
+    Sleep, 100
+
+    ; Paste into the cell (still in edit mode)
+    Send, ^a
+    Sleep, 50
+    Send, ^v
+    Sleep, 50
+    Send, {Enter}
+
+    ; Restore original clipboard
+    Sleep, 100
+    Clipboard := ClipSaved
+    return
+}
+    
