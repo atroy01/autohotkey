@@ -113,4 +113,61 @@ return
     Clipboard := ClipSaved
     return
 }
-    
+
+
+; pastes contents of a single cell  into separate cells going down depending on the number of line breaks WITHIN the cell
+^!d:: ; Ctrl + Alt + D
+{
+    ; Save the current clipboard
+    ClipSaved := ClipboardAll
+    Clipboard := ""
+
+    ; Open the selected Excel cell in edit mode
+    Send, {F2}
+    Sleep, 100
+
+    ; Select all and copy
+    Send, ^a
+    Sleep, 100
+    Send, ^c
+
+    ; Wait up to 2 seconds for clipboard to update
+    ClipWait, 2
+    if (ErrorLevel) {
+        MsgBox, Clipboard did not update. Try again.
+        Clipboard := ClipSaved
+        return
+    }
+
+    ; Get the clipboard content
+    text := Clipboard
+
+    ; Exit edit mode without changes
+    Send, {Escape}
+    Sleep, 100
+
+    ; Normalize line endings and split
+    text := RegExReplace(text, "`r`n", "`n")
+    text := RegExReplace(text, "`r", "`n")
+    lines := StrSplit(text, "`n")
+
+    ; If only one line, nothing to split
+    if (lines.MaxIndex() <= 1) {
+        MsgBox, No line breaks found in cell.
+        Clipboard := ClipSaved
+        return
+    }
+
+    ; Type each line into successive cells going down
+    for i, line in lines
+    {
+        SendInput, %line%
+        Sleep, 50
+        Send, {Down}
+        Sleep, 50
+    }
+
+    ; Restore original clipboard
+    Clipboard := ClipSaved
+    return
+}
