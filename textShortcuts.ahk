@@ -57,7 +57,7 @@ return
 
 
 ; 2025-05-21 script from chatgpt that automatically reverses the lines that were enteired into a single excel cell. good for reversing the view of dated lines
-^!r:: ; Ctrl + Alt + R
+^!w:: ; Ctrl + Alt + w
 {
     ; Save the current clipboard
     ClipSaved := ClipboardAll
